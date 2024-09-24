@@ -1,5 +1,4 @@
-try {
-    const res = await fetch("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature")
+fetch ("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature")
     const data = await res.json()
     document.body.style.backgroundImage = `url(${data.urls.regular})`
     document.getElementById("author").textContent = `By: ${data.user.name}`
@@ -14,8 +13,7 @@ try {
  * getCurrentLocation callback to use try...catch
  */
 
-try {
-    const res = await fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
+fetch ("https://api.coingecko.com/api/v3/coins/dogecoin")
     if (!res.ok) {
         throw Error("Something went wrong")
     }
@@ -41,11 +39,12 @@ function getCurrentTime() {
 setInterval(getCurrentTime, 1000)
 
 navigator.geolocation.getCurrentPosition(async position => {
-    try {
-        const res = await fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
-        if (!res.ok) {
+    fetch (`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
+    .then(res => {
+    if (!res.ok) {
             throw Error("Weather data not available")
         }
+        return res.json()
         const data = await res.json()
         const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
         document.getElementById("weather").innerHTML = `
